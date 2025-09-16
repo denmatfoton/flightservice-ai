@@ -87,7 +87,6 @@ body {
 
 
 .flight-form-container {
-  max-width: 600px;
   margin: 2rem auto;
   padding: 2rem;
   background: var(--form-bg);
@@ -196,4 +195,80 @@ button[type="submit"]:disabled {
   max-height: 400px;
   overflow-y: auto;
   color: var(--text-color);
+}
+
+/* Markdown briefing styles */
+.markdown-briefing {
+  text-align: left;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.markdown-briefing h2, .markdown-briefing h3 {
+  margin-top: 1.2em;
+  margin-bottom: 0.4em;
+  line-height: 1.25;
+}
+
+.markdown-briefing p { margin: 0.5em 0; }
+
+.markdown-briefing ul, .markdown-briefing ol {
+  padding-left: 1.2em;
+  margin: 0.4em 0 0.8em;
+}
+
+.markdown-briefing li { margin: 0.25em 0; }
+
+.markdown-briefing code.inline-code {
+  background: rgba(127,127,127,0.15);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.85rem;
+}
+
+.markdown-briefing pre.code-block {
+  background: #1e1e1e;
+  color: #dcdcdc;
+  padding: 0.75rem 0.9rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  border: 1px solid #333;
+}
+
+.markdown-briefing table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 0.8rem;
+}
+
+.markdown-briefing table th, .markdown-briefing table td {
+  border: 1px solid var(--border-color);
+  padding: 4px 6px;
+  text-align: left;
+}
+
+.markdown-briefing blockquote {
+  border-left: 4px solid var(--border-color);
+  margin: 0.8em 0;
+  padding: 0.4em 0.9em;
+  font-style: italic;
+  background: rgba(127,127,127,0.08);
+  border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-briefing pre.code-block {
+    background: #111;
+    color: #eee;
+    border-color: #222;
+  }
+  .markdown-briefing blockquote {
+    background: rgba(255,255,255,0.05);
+  }
 }

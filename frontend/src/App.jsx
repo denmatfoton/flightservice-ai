@@ -1,5 +1,8 @@
 
 import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeSanitize from 'rehype-sanitize';
 import './App.css';
 
 function App() {
@@ -39,7 +42,6 @@ function App() {
       const result = await response.json();
       if (result.status === 'success') {
         setFlightData(result.flight_info);
-        alert('Flight information submitted successfully!');
       } else {
         alert('Submission failed.');
       }
@@ -117,18 +119,24 @@ function App() {
       
       {flightData && (
         <div className="flight-data-container">
-          <h2>Flight Information</h2>
-          <div className="data-section">
-            <h3>Pilot Provided Data</h3>
-            <pre>{JSON.stringify(flightData.pilot_data, null, 2)}</pre>
-          </div>
-          <div className="data-section">
-            <h3>Online Resources</h3>
-            <pre>{JSON.stringify(flightData.online_resources, null, 2)}</pre>
-          </div>
-          <div className="data-section">
-            <h3>AI Analysis</h3>
-            <pre>{JSON.stringify(flightData.ai_analysis, null, 2)}</pre>
+          <h2>AI Flight Briefing</h2>
+          <div className="markdown-briefing">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeSanitize]}
+              components={{
+                h1: (props) => <h2 {...props} />,
+                h2: (props) => <h3 {...props} />,
+                table: (props) => <table className="md-table" {...props} />,
+                code: ({inline, className, children, ...rest}) => (
+                  inline
+                    ? <code className="inline-code" {...rest}>{children}</code>
+                    : <pre className="code-block"><code {...rest}>{children}</code></pre>
+                )
+              }}
+            >
+              {flightData.ai_analysis?.briefing || 'No briefing available.'}
+            </ReactMarkdown>
           </div>
         </div>
       )}

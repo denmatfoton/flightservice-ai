@@ -60,7 +60,30 @@ source .venv/bin/activate
 pip install -r requirements.txt  # (If a requirements file is later added)
 ```
 
-### 3. Configure Backend Environment
+### 3 Create an Azure AI Agent (if you don't already have one)
+
+You must have an Azure AI Project and an Agent configured before the backend can produce flight briefings.
+
+Reference guide (official learning content): https://microsoftlearning.github.io/mslearn-ai-agents/Instructions/01-agent-fundamentals.html
+
+Summary of the essential steps:
+1. In the Azure portal (or Azure AI Studio / Foundry), create an **Azure AI Project** in your subscription & region (note the region for the endpoint URL).
+2. Navigate to the **Agents** blade and click **Create Agent**.
+3. Provide:
+	- A descriptive name (e.g. `FlightServiceBriefingAgent`).
+	- A system prompt or instructions emphasizing aviation safety, structured briefing output, and concise actionable recommendations.
+	- (Optional) Tool / file / knowledge base hookups – not required for this prototype.
+4. Save the agent; copy its **Agent ID**.
+5. From the Project overview copy the **Project Endpoint** (looks like `https://<resource_name>.services.ai.azure.com/api/projects/<project_name>`).
+6. Ensure your local dev environment is authenticated: `az login` (or configure a managed identity in hosted scenarios).
+
+You will use:
+- `PROJECT_ENDPOINT`  → Project endpoint URL
+- `AGENT_ID`          → The agent identifier you just copied
+
+These values are required by the setup script in the next step.
+
+### 4. Configure Backend Environment
 Run the provided setup script (creates `backend/.env`).
 ```bash
 ./setup_environment.sh
@@ -74,7 +97,7 @@ The script reminds you that authentication uses `DefaultAzureCredential`—ensur
 az login
 ```
 
-### 4. Frontend Dependencies
+### 5. Frontend Dependencies
 ```bash
 cd frontend
 npm install
@@ -82,7 +105,7 @@ npm install
 npm install react-markdown remark-gfm rehype-sanitize
 ```
 
-### 5. Run Services
+### 6. Run Services
 In two terminals:
 ```bash
 # Terminal 1 (backend)
